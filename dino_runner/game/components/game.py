@@ -24,8 +24,10 @@ class Game:
 
         #Game has dinosaur:
         self.dinosaur = Dinosaur("T_Rex")
+
         show_name = pygame.font.SysFont('Z003', 50)
-        self.attribute = show_name.render("Dino: "+self.dinosaur.name +" is running", False, (1, 1, 1))
+
+        self.attribute = show_name.render("Dino: "+self.dinosaur.name +" is running", False, (0, 0, 0))
         #Game has cloud:
         self.cloud = Cloud()
         #Game has cloud:
@@ -71,7 +73,7 @@ class Game:
         self.draw_background()
 
         #DRAW Dinosaurs
-        self.dinosaur.draw(self.screen,100,310)
+        self.dinosaur.draw(self.screen)
         self.screen.blit(self.attribute, (500, 500))
 
         #DRAW Claud:

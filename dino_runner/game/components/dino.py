@@ -1,59 +1,107 @@
 import pygame
 import random
 from game.utils.constants import RUNNING,DUCKING,JUMPING
+
 class Dinosaur:
-    def __init__(self, name):
+    #Valores
+    X_POSITION = 80
+    Y_POSITION = 310
+    Y_POSITION_DUCK =340
+    jUMP_VEL = 8.5
+    def __init__(self,name):
         self.name = name
-        self.image = RUNNING[0]
-        self.is_jumping = False
-        self.jump_speed = 8.5
-        self.jump_height = 20
-        self.current_jump_height = 0
         
+        #imagenes que utilizaremos 
+        self.run_image = RUNNING
+        self.duck_image = DUCKING
+        self.jump_image = JUMPING
+
+        #Inicia corriendo
+        self.dino_duck = False
+        self.dino_run = True
+        self.dino_jump = False
+
+        self.step_selected_image_index = 0
+        self.jump_vel = self.jUMP_VEL
+        self.image =self.run_image[0]
+        #Definos dino_rect
+        self.dino_rect = self.image.get_rect()
+        self.dino_rect.x = self.X_POSITION
+        self.dino_rect.y = self.Y_POSITION
+
+
+        
+
         
     #dino sabe dibujarse (pygame)
-    def draw(self,screen,coord_x,coord_y):
-        image_position = (coord_x,coord_y)
-        screen.blit(self.image, image_position)
+    def draw(self,screen):
+        image_position = (self.dino_rect.x,self.dino_rect.y)
+        screen.blit(self.image,image_position)
         
 
     #dino sabe correr 
     def run(self):
         #efect to run
-        selected_image_index = random.randint(0,1)
+        #selected_image_index = random.randint(0,1)
         #selct image in selected_image_index
-        print("selected image is",selected_image_index)
-        self.image = RUNNING[selected_image_index]
+        #print("selected image is",selected_image_index)
+        self.image = self.run_image[self.step_selected_image_index // 5]
+        self.dino_rect = self.image.get_rect()
+        self.dino_rect.x = self.X_POSITION
+        self.dino_rect.y = self.Y_POSITION
+        self.step_selected_image_index += 1
     
     def duck(self):
         #efect ducking
-        selected_image_index = random.randint(0,1)
+        #selected_image_index = random.randint(0,1)
         #selct image in selected_image_index
-        print("selected image is",selected_image_index)
-        self.image = DUCKING[selected_image_index]
+        #print("selected image is",selected_image_index)
+
+        self.image = self.duck_image[self.step_selected_image_index // 5]
+        self.dino_rect = self.image.get_rect()
+        self.dino_rect.x = self.X_POSITION
+        self.dino_rect.y = self.Y_POSITION_DUCK
+        self.step_selected_image_index += 1
+
+    #Sabe saltar
+    def jump(self):
+        self.image = self.jump_image
+        if self.dino_jump:
+            self.dino_rect.y -= self.jump_vel * 4
+            self.jump_vel -= 0.8
+
+        if self.jump_vel < - self.jUMP_VEL:
+            self.dino_rect.y = self.Y_POSITION
+            self.dino_jump = False
+            self.jump_vel = self.jUMP_VEL
+        
         
 
-    def jump (self):
-        self.is_jumping = True
-        if self.is_jumping:
-                if self.current_jump_height >= self.jump_height:
-                    self.current_jump_height = 0
-                    self.is_jumping = False
-                    self.image = RUNNING[0]
-                else :
-                    self.current_jump_height += self.jump_speed
-                    self.image = JUMPING[0]
-
-    
     def update(self,enter_user_date):
-        
-        self.run()
+        if self.dino_run:
+            self.run()
+            self.dino_status = "Run"
 
-        if enter_user_date[pygame.K_DOWN]:
-            
+        if self.dino_duck:
             self.duck()
+            self.dino_status = "Duck"
 
-        elif enter_user_date[pygame.K_UP]:
-            
+        if self.dino_jump:
             self.jump()
-            
+            self.dino_status = "jump"
+
+        if self.step_selected_image_index >= 10:
+            self.step_selected_image_index = 0
+
+        if enter_user_date[pygame.K_UP] and not self.dino_jump:
+            self.dino_duck = False
+            self.dino_run = False
+            self.dino_jump = True
+        elif enter_user_date[pygame.K_DOWN] and not self.dino_jump:
+            self.dino_duck = True
+            self.dino_run = False
+            self.dino_jump = False
+        elif not (self.dino_jump or enter_user_date[pygame.K_DOWN]):
+            self.dino_duck = False
+            self.dino_run = True
+            self.dino_jump = False    

@@ -7,6 +7,7 @@ class CactusBuilder():
 
     def __init__(self):
         self.cactuses = []
+        
 
     def update(self):
         #self.cactuses.extend(LARGE_CACTUS)
@@ -17,7 +18,9 @@ class CactusBuilder():
         for img_cactus in cactus_images:
             cactus = Cactus(img_cactus)
             self.cactuses.append(cactus)
-        #self.cactuses.pop() #remuve un elemento en la cola
+        
+
+    
 
     def  draw(self,screen):
         x = 300
