@@ -29,7 +29,7 @@ class Game:
 
         self.attribute = show_name.render("Dino: "+self.dinosaur.name +" is running", False, (0, 0, 0))
         #Game has cloud:
-        self.cloud = Cloud()
+        self.cloud = Cloud(self.game_speed)
         #Game has cloud:
         self.bird = Bird()
         #game has cactus
@@ -77,8 +77,8 @@ class Game:
         self.screen.blit(self.attribute, (500, 500))
 
         #DRAW Claud:
-        self.cloud.draw(self.screen,200,200)
-        self.cloud.draw(self.screen,500,300)
+        self.cloud.draw(self.screen)
+        self.cloud.draw(self.screen)
 
         #DRAW Birds
         self.bird.draw(self.screen)

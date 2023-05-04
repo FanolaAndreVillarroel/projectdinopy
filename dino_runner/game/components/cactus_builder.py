@@ -2,6 +2,7 @@
 
 from game.utils.constants import LARGE_CACTUS, SMALL_CACTUS,SCREEN_WIDTH
 from game.components.cactus import Cactus
+
 import random
 
 class CactusBuilder():
@@ -39,7 +40,16 @@ class CactusBuilder():
             obstacle.draw(screen)
            
 
+    """def colision(self):
+        self.colisions = []
+        for self.cactus in self.cactus_images:
+            for self.dinosaur in self.cactus_images:
+                if self.cactus != self.dinosaur and self.cactus.self.cactuses[-1].x_pos_bg == self.dinosaur_rect.x
+"""
 
+        # screen.blit(s
+        # screen.blit(s
+        # screen.blit(s
 
         # x = 300
         # y = 300

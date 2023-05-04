@@ -1,16 +1,18 @@
-from game.utils.constants import CLOUD
-class Cloud():
-    def __init__(self):
+import random
+from game.utils.constants import CLOUD,SCREEN_WIDTH
+class Cloud:
+    def __init__(self,game_speed):
+        self.x = SCREEN_WIDTH + random.randint(800, 1000)
+        self.y = random.randint(50, 100)
         self.image = CLOUD
-    
-    def draw(self,screen,coord_x,coord_y):
-        image_position = (coord_x,coord_y)
-        screen.blit(self.image, image_position)
-
-    def show(self):
-        #selct image in selected
-        print("selected image is",self.image)
-        self.image = CLOUD
+        self.width = self.image.get_width()
+        self.game_speed =game_speed
 
     def update(self):
-        self.show()
+        self.x -= self.game_speed
+        if self.x < -self.width:
+            self.x = SCREEN_WIDTH + random.randint(2500, 3000)
+            self.y = random.randint(50, 100)
+
+    def draw(self, SCREEN):
+        SCREEN.blit(self.image, (self.x, self.y))
