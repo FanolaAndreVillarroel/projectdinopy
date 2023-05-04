@@ -1,10 +1,11 @@
 import random
-from game.utils.constants import BIRD
-class Bird:
+from pygame.sprite import Sprite
+from game.utils.constants import BIRD,SCREEN_WIDTH
+class Bird(Sprite):
     def __init__(self):
         
         self.image = BIRD[0]
-        self.x_pos_bg = 900
+        self.x_pos_bg = 600
         self.y_pos_bg = 100
 
     #bird sabe dibujarse (pygame)
@@ -12,10 +13,10 @@ class Bird:
         image_width = self.image.get_width()
         screen.blit(self.image, (self.x_pos_bg, self.y_pos_bg))
         screen.blit(self.image, (image_width + self.x_pos_bg, self.y_pos_bg))
-        screen.blit(self.image, (image_width + self.x_pos_bg +  1500, self.y_pos_bg+ 200))
+        #screen.blit(self.image, (image_width + self.x_pos_bg + 500, self.y_pos_bg+ 20))
         if self.x_pos_bg <= -image_width:
             screen.blit(self.image, (image_width + self.x_pos_bg, self.y_pos_bg))
-            self.x_pos_bg = 800
+            self.x_pos_bg = SCREEN_WIDTH
         self.x_pos_bg -= 10
 
     #pajaro sabe volar 

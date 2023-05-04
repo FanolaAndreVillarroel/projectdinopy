@@ -1,5 +1,6 @@
 #responsable de crear catus de distintos tipos
-from game.utils.constants import LARGE_CACTUS, SMALL_CACTUS
+
+from game.utils.constants import LARGE_CACTUS, SMALL_CACTUS,SCREEN_WIDTH
 from game.components.cactus import Cactus
 import random
 
@@ -10,7 +11,7 @@ class CactusBuilder():
         self.cactus_images = LARGE_CACTUS
         
 
-    def update(self):
+    def update(self,game):
         if len(self.cactuses) == 0:
             for img_cactus in self.cactus_images:
                 cactus = Cactus(img_cactus)
@@ -27,12 +28,18 @@ class CactusBuilder():
         #     c.rect.x -= 50
         #     if c.rect.x < -c.rect.width:
         #         self.cactuses.pop()
-
-    def  draw(self,screen):
+       
+        
+    def  draw(self, screen):
         self.cactuses[-1].x_pos_bg -= 15
+        if self.cactuses[-1].x_pos_bg < -self.cactuses[-1].image.get_width():
+            self.cactuses.pop()
 
         for obstacle in self.cactuses:
             obstacle.draw(screen)
+           
+
+
 
         # x = 300
         # y = 300
