@@ -53,10 +53,6 @@ class Dinosaur:
     
     def duck(self):
         #efect ducking
-        #selected_image_index = random.randint(0,1)
-        #selct image in selected_image_index
-        #print("selected image is",selected_image_index)
-
         self.image = self.duck_image[self.step_selected_image_index // 5]
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = self.X_POSITION
@@ -68,7 +64,7 @@ class Dinosaur:
         self.image = self.jump_image
         if self.dino_jump:
             self.dino_rect.y -= self.jump_vel * 4
-            self.jump_vel -= 0.8
+            self.jump_vel -= 0.6
 
         if self.jump_vel < - self.jUMP_VEL:
             self.dino_rect.y = self.Y_POSITION

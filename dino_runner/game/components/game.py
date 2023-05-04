@@ -2,12 +2,14 @@ import pygame
 
 from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 from game.components.dino import Dinosaur
-from game.components.clouds import Cloud
+from game.components.cloud import Cloud
 from game.components.bird import Bird
 #from game.components.cactus import Cactus
 from game.components.cactus_builder import CactusBuilder
 
+
 class Game:
+    global obstacles
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(TITLE)
@@ -18,6 +20,7 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
+        
 
         
         
@@ -30,7 +33,10 @@ class Game:
         self.attribute = show_name.render("Dino: "+self.dinosaur.name +" is running", False, (0, 0, 0))
         #Game has cloud:
         self.cloud = Cloud()
-        #Game has cloud:
+
+        
+        
+        #Game has bird
         self.bird = Bird()
         #game has cactus
         #self.cactus = Cactus()
@@ -59,8 +65,9 @@ class Game:
     #actualiza el estado de los objetos en pantalla
     def update(self):
         self.dinosaur.update(pygame.key.get_pressed())
-            
         self.cloud.update()
+            
+        
         self.bird.update()
         self.cactus_builder.update()
         
@@ -81,7 +88,7 @@ class Game:
         self.cloud.draw(self.screen,500,300)
 
         #DRAW Birds
-        self.bird.draw(self.screen, 500,100)
+        self.bird.draw(self.screen)
 
         #DRAW Cactus
         #self.cactus.draw(self.screen)
